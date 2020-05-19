@@ -67,7 +67,7 @@ class MyTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       onChanged: (value) {
-        Provider.of<Data>(context, listen: false).changeString(value);
+        Provider.of<Data>(context, listen: false).data = value;
       },
     );
   }
@@ -75,10 +75,24 @@ class MyTextField extends StatelessWidget {
 
 // this is the Data object that handles our logic
 class Data extends ChangeNotifier {
-  String data = 'katratzi';
-
-  void changeString(String newValue) {
-    data = newValue;
+  //get & set :)
+  String _data = 'katratzi';
+  String get data => _data;
+  set data(String newValue) {
+    _data = newValue;
     notifyListeners(); // IMPORTANT CALL :)
+  }
+
+  // use setter instead of this method
+  // void changeString(String newValue) {
+  //   data = newValue;
+  //   notifyListeners(); // IMPORTANT CALL :)
+  // }
+
+  // cool, get & set syntax
+  double _myTime = 0.5;
+  double get myTime => _myTime;
+  set myTime(newTime) {
+    _myTime = newTime;
   }
 }
