@@ -10,13 +10,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Provider<String>(
-      create: (context) => data,
+    return ChangeNotifierProvider<Data>(
+      create: (context) => Data(),
       child: MaterialApp(
           title: 'Flutter Demo',
           home: Scaffold(
             appBar: AppBar(
-              title: Text(data),
+              title: MyText(),
             ),
             body: Level1(),
           )),
@@ -34,16 +34,40 @@ class Level1 extends StatelessWidget {
 class Level2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Level3();
+    return Column(
+      children: <Widget>[
+        MyTextField(),
+        Level3(),
+      ],
+    );
   }
 }
 
 class Level3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text(Provider.of<String>(
-      context,
-      listen: false,
-    ));
+    return Text(
+      Provider.of<Data>(context, listen: false).data,
+    );
   }
+}
+
+class MyText extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      Provider.of<Data>(context, listen: false).data,
+    );
+  }
+}
+
+class MyTextField extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return TextField();
+  }
+}
+
+class Data extends ChangeNotifier {
+  String data = 'katratzi';
 }
